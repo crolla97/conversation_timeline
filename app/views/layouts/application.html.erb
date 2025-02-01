@@ -23,7 +23,17 @@
   </head>
 
   <body>
-    <main class="container mx-auto mt-28 px-5 flex">
+    <main class="container mx-auto px-5 flex flex-col">
+      <header class="p-5">
+        <% if authenticated? %>
+          <div class="text-base text-gray-400">
+            <%= Current.user.email_address %>
+          </div>
+          <%= button_to 'Sign out', session_path, method: :delete, class: "text-sm text-gray-400" %>
+        <% else %>
+          <%= link_to 'Sign in', new_session_path %>
+        <% end %>
+      </header>
       <%= yield %>
     </main>
   </body>

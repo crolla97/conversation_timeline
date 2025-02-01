@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
-  # Defines the root path route ("/")
-  # root "posts#index"
+  post "/:notable_type/:notable_id/notes", to: "notes#create", as: "notable_notes"
+
+  # Root path (for example)
+  root "projects#index"
 end
