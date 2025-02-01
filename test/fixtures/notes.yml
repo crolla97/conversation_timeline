@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  content: MyText
+  note_type: MyString
+  user: one
+  notable: one
+  notable_type: Notable
+
+two:
+  content: MyText
+  note_type: MyString
+  user: two
+  notable: two
+  notable_type: Notable
