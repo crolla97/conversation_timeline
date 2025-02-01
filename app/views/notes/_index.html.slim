@@ -12,7 +12,6 @@
                 span
                   = "#{note.user.try(:email_address) || 'Unknown User'} commented on"
                 = time_tag note.created_at, "data-local": "time", "data-format": "%B %e, %Y %l:%M%P"
-                / span = {note.created_at.strftime("%b %d, %Y %I:%M %p")}
 
             // add status comment
             - else

@@ -16,7 +16,7 @@
 
   div
     = form.label :status, style: "display: block"
-    = form.text_field :status
+    = form.select :status, Project.statuses.keys.map { |s| [s.humanize, s] }, {}
 
   div
     = form.submit
