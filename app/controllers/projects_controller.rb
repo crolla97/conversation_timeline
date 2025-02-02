@@ -25,11 +25,11 @@ class ProjectsController < ApplicationController
 
     respond_to do |format|
       if @project.save
+        build_created_note
+
         format.html { redirect_to @project, notice: "Project was successfully created." }
-        format.json { render :show, status: :created, location: @project }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @project.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -41,7 +41,7 @@ class ProjectsController < ApplicationController
 
       if @project.update(project_params)
         if @project.previous_changes.key?("status")
-          create_status_note(previous_status, @project.status)
+          build_status_note(previous_status, @project.status)
         end
 
         format.html { redirect_to @project, notice: "Project was successfully updated." }
@@ -63,8 +63,13 @@ class ProjectsController < ApplicationController
 
   private
 
-    def create_status_note(old_status, new_status)
+    def build_status_note(old_status, new_status)
       note_content = "#{Current.user.email_address} updated the status from #{old_status.humanize} to #{new_status.humanize}"
+      @project.notes.create!(note_type: "system", content: note_content, user: Current.user)
+    end
+
+    def build_created_note
+      note_content = "#{Current.user.email_address} created the project"
       @project.notes.create!(note_type: "system", content: note_content, user: Current.user)
     end
 

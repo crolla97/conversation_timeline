@@ -1,22 +1,23 @@
-= form_with(model: project) do |form|
-  - if project.errors.any?
-    div style="color: red"
-      h2 = "#{pluralize(project.errors.count, "error")} prohibited this project from being saved:"
-      ul
-        - project.errors.each do |error|
-          li = error.full_message
+div.grid.gap-4.grid-cols-1.md:grid-cols-3
+  .col-span-1.flex.flex-col.md:col-span-3
+    = form_with(model: project) do |form|
+      - if project.errors.any?
+        div style="color: red"
+          h2 = "#{pluralize(project.errors.count, "error")} prohibited this project from being saved:"
+          ul
+            - project.errors.each do |error|
+              li = error.full_message
 
-  div
-    = form.label :title, style: "display: block"
-    = form.text_field :title
+      div.w-full.flex.flex-col
+        = form.label :title, style: "display: block"
+        = form.text_field :title, class: "bg-white border rounded"
 
-  div
-    = form.label :description, style: "display: block"
-    = form.textarea :description
+      div.w-full.flex.flex-col
+        = form.label :description, style: "display: block"
+        = form.textarea :description, class: "bg-white border rounded"
 
-  div
-    = form.label :status, style: "display: block"
-    = form.select :status, Project.statuses.keys.map { |s| [s.humanize, s] }, {}
+      div.w-full.flex.flex-col
+        = form.label :status, style: "display: block"
+        = form.select :status, Project.statuses.keys.map { |s| [s.humanize, s] }, {}, class: "bg-white border rounded"
 
-  div
-    = form.submit
+      = form.submit "Submit", class: "px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 mt-2"

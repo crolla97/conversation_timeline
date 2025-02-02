@@ -1,15 +1,18 @@
-p style="color: green" = notice
+div.grid.gap-4.grid-cols-1.md:grid-cols-3
+  .col-span-1.md:col-span-2
+    p style="color: green" = notice
 
-.flex.flex-col.p-4
-  == render @project
+    .flex.flex-col.p-4
+      div.bg-gray-50.p-4.rounded.border.border-gray-200.shadow
+        == render @project
 
-  div
-    => link_to "Edit this project", edit_project_path(@project)
-    '|
-    =< link_to "Back to projects", projects_path
+      == render 'notes/index', notable: @project
 
-    = button_to "Destroy this project", @project, method: :delete
-
-  == render 'notes/index', notable: @project
-
-  == render 'notes/form', notable: @project, note_type: 'comment'
+      == render 'notes/form', notable: @project, note_type: 'comment'
+  aside.col-span-1
+    .sidebar
+      h2.text-xl.font-bold.mb-2 In this section
+      div.flex.flex-col.underline.gap-1
+        = link_to  "Return to projects", projects_path
+        = link_to "Edit this project", edit_project_path(@project)
+        = button_to "Destroy this project", @project, method: :delete, class: "underline"

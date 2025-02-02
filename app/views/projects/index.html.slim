@@ -1,11 +1,19 @@
-p style="color: green" = notice
+div.grid.gap-4.grid-cols-1.md:grid-cols-3
+  p style="color: green" = notice
 
-h1 Projects
+  .col-span-1.md:col-span-3
+    h1.text-3xl Projects
+  .col-span-1.md:col-span-2
 
-#projects
-  - @projects.each do |project|
-    == render project
-    p
-      = link_to "Show this project", project
+    #projects
+      - @projects.each do |project|
+        div.bg-gray-50.p-4.rounded.border.border-gray-200.shadow
+          == render project
+          = link_to "Show this project", project, class: "px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 inline-flex mt-2"
 
-= link_to "New project", new_project_path
+  aside.col-span-1
+    .sidebar
+      h2.text-xl.font-bold.mb-2 In this section
+      = link_to "New project", new_project_path, class: "underline"
+
+

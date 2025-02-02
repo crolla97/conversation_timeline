@@ -5,17 +5,18 @@
   - if timeline_events.any?
     ul.space-y-4
       - timeline_events.each do |note|
-        li.p-4.bg-white.shadow.rounded
-          .text-sm.text-gray-500
-            - if note.note_type == 'comment'
+        - if note.note_type == 'comment'
+          li.p-4.bg-white.shadow.rounded
+            .text-sm.text-gray-500
               .flex.gap-1
                 span
                   = "#{note.user.try(:email_address) || 'Unknown User'} commented on"
                 = time_tag note.created_at, "data-local": "time", "data-format": "%B %e, %Y %l:%M%P"
-
-            // add status comment
-            - else
-              = "System note on #{note.created_at.strftime("%b %d, %Y %I:%M %p")}"
-          p.mt-1= note.content
+            p.mt-1= note.content
+        - else
+          li.p-4.bg-white.shadow.rounded
+            .text-sm.text-gray-500
+              = "#{note.created_at.strftime("%b %d, %Y %I:%M %p")}"
+            p.mt-1= note.content
   - else
     p.text-gray-600 No notes have been added yet.
