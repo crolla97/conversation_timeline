@@ -15,4 +15,4 @@ div.grid.gap-4.grid-cols-1.md:grid-cols-3
       div.flex.flex-col.underline.gap-1
         = link_to  "Return to projects", projects_path
         = link_to "Edit this project", edit_project_path(@project)
-        = button_to "Destroy this project", @project, method: :delete, class: "underline"
+        = button_to "Destroy this project", @project, method: :delete, form: { data: { turbo_confirm: 'Are you sure you want to delete this project?' } }, class: "underline hover:cursor-pointer"

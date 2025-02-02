@@ -64,12 +64,12 @@ class ProjectsController < ApplicationController
   private
 
     def build_status_note(old_status, new_status)
-      note_content = "#{Current.user.email_address} updated the status from #{old_status.humanize} to #{new_status.humanize}"
+      note_content = "#{Current.user.username} updated the status from #{old_status.humanize} to #{new_status.humanize}"
       @project.notes.create!(note_type: "status", content: note_content, user: Current.user)
     end
 
     def build_created_note
-      note_content = "#{Current.user.email_address} created the project"
+      note_content = "#{Current.user.username} created the project"
       @project.notes.create!(note_type: "system", content: note_content, user: Current.user)
     end
 
