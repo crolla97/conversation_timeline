@@ -14,6 +14,8 @@ Rails.application.routes.draw do
 
   post "/:notable_type/:notable_id/notes", to: "notes#create", as: "notable_notes"
 
+  resources :notes, only: [ :edit, :update, :show]
+
   # Root path (for example)
   root "projects#index"
 end

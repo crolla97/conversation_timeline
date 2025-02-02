@@ -6,9 +6,9 @@ div.grid.gap-4.grid-cols-1.md:grid-cols-3
       div.bg-gray-50.p-4.rounded.border.border-gray-200.shadow
         == render @project
 
-      == render 'notes/index', notable: @project
+      == render 'notes/timeline', notable: @project
 
-      == render 'notes/form', notable: @project, note_type: 'comment'
+      == render 'notes/new_note', notable: @project, note_type: 'comment'
   aside.col-span-1
     .sidebar
       h2.text-xl.font-bold.mb-2 In this section

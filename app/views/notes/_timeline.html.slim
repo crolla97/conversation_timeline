@@ -14,17 +14,23 @@
                 .flex.gap-1
                   = time_tag note.created_at, "data-local": "time", "data-format": "%B %e, %Y %l:%M%P"
               p.mt-1= note.content
-          -  elsif note.note_type == 'comment'
+          - elsif note.note_type == 'comment'
             .absolute.w-7.h-7.bg-white.border-2.border-gray-300.rounded-full.m-0.top-1/2.-left-10.-translate-y-1/2
               .relative.flex.justify-center.items-center.h-full
                 = lucide_icon('message-circle', class: "w-4 h-4 text-gray-400")
-            .bg-white.shadow.rounded
-              .text-sm.text-white.bg-slate-500.p-2.rounded-t-sm
-                .flex.gap-1
-                  span
-                    = "#{note.user.try(:email_address) || 'Unknown User'} commented on"
-                  = time_tag note.created_at, "data-local": "time", "data-format": "%B %e, %Y %l:%M%P"
-              p.p-4.mt-1= note.content
+
+            = turbo_frame_tag "note_#{note.id}" do
+              .bg-white.shadow.rounded
+                .text-sm.text-white.bg-slate-500.p-2.rounded-t-sm
+                  .flex.gap-1
+                    span
+                      = "#{note.user.try(:email_address) || 'Unknown User'} commented on"
+                    = time_tag note.created_at, "data-local": "time", "data-format": "%B %e, %Y %l:%M%P"
+                    - if note.user == Current.user
+                      = link_to "Edit", edit_note_path(note), data: { turbo_frame: "note_#{note.id}" }, class: "ml-auto"
+                p.p-4.mt-1= note.content
+
+
           - else
             .absolute.w-7.h-7.bg-white.border-2.border-gray-300.rounded-full.m-0.top-1/2.-left-10.-translate-y-1/2
               .relative.flex.justify-center.items-center.h-full
