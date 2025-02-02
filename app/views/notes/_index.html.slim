@@ -1,22 +1,38 @@
 - timeline_events = notable.notes.order(:created_at)
 
-.section.notes.mt-8
-  h2.text-2xl.font-bold.mb-4 Notes
+.section.notes.px-4.border-b-2.border-gray-300
   - if timeline_events.any?
-    ul.space-y-4
+    .relative.pl-6.border-l-2.border-gray-300.space-y-4.py-6
       - timeline_events.each do |note|
-        - if note.note_type == 'comment'
-          li.p-4.bg-white.shadow.rounded
-            .text-sm.text-gray-500
-              .flex.gap-1
-                span
-                  = "#{note.user.try(:email_address) || 'Unknown User'} commented on"
-                = time_tag note.created_at, "data-local": "time", "data-format": "%B %e, %Y %l:%M%P"
-            p.mt-1= note.content
-        - else
-          li.p-4.bg-white.shadow.rounded
-            .text-sm.text-gray-500
-              = "#{note.created_at.strftime("%b %d, %Y %I:%M %p")}"
-            p.mt-1= note.content
+        .relative
+          - if note.note_type == 'status'
+            .absolute.w-7.h-7.bg-white.border-2.border-gray-300.rounded-full.m-0.top-1/2.-left-10.-translate-y-1/2
+              .relative.flex.justify-center.items-center.h-full
+                = lucide_icon('list-todo', class: "w-4 h-4 text-gray-400")
+            .p-4.bg-white.shadow.rounded
+              .text-sm.text-gray-500
+                .flex.gap-1
+                  = time_tag note.created_at, "data-local": "time", "data-format": "%B %e, %Y %l:%M%P"
+              p.mt-1= note.content
+          -  elsif note.note_type == 'comment'
+            .absolute.w-7.h-7.bg-white.border-2.border-gray-300.rounded-full.m-0.top-1/2.-left-10.-translate-y-1/2
+              .relative.flex.justify-center.items-center.h-full
+                = lucide_icon('message-circle', class: "w-4 h-4 text-gray-400")
+            .bg-white.shadow.rounded
+              .text-sm.text-white.bg-slate-500.p-2.rounded-t-sm
+                .flex.gap-1
+                  span
+                    = "#{note.user.try(:email_address) || 'Unknown User'} commented on"
+                  = time_tag note.created_at, "data-local": "time", "data-format": "%B %e, %Y %l:%M%P"
+              p.p-4.mt-1= note.content
+          - else
+            .absolute.w-7.h-7.bg-white.border-2.border-gray-300.rounded-full.m-0.top-1/2.-left-10.-translate-y-1/2
+              .relative.flex.justify-center.items-center.h-full
+                = lucide_icon('wrench', class: "w-4 h-4 text-gray-400")
+            .p-4.bg-white.shadow.rounded
+              .text-sm.text-gray-500
+                .flex.gap-1
+                  = time_tag note.created_at, "data-local": "time", "data-format": "%B %e, %Y %l:%M%P"
+              p.mt-1= note.content
   - else
     p.text-gray-600 No notes have been added yet.

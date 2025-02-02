@@ -66,3 +66,5 @@ group :test do
 end
 
 gem "hotwire-livereload", "~> 2.0", group: :development
+
+gem "lucide-rails", "~> 0.5.1"

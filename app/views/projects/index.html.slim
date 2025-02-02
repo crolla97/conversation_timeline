@@ -6,10 +6,13 @@ div.grid.gap-4.grid-cols-1.md:grid-cols-3
   .col-span-1.md:col-span-2
 
     #projects
-      - @projects.each do |project|
-        div.bg-gray-50.p-4.rounded.border.border-gray-200.shadow
-          == render project
-          = link_to "Show this project", project, class: "px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 inline-flex mt-2"
+      - if @projects.any?
+        - @projects.each do |project|
+          div.bg-gray-50.p-4.rounded.border.border-gray-200.shadow
+            == render project
+            = link_to "Show this project", project, class: "px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 inline-flex mt-2"
+      - else
+        p.text-gray-600 No projects have been added
 
   aside.col-span-1
     .sidebar

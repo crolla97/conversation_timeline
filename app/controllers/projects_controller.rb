@@ -65,7 +65,7 @@ class ProjectsController < ApplicationController
 
     def build_status_note(old_status, new_status)
       note_content = "#{Current.user.email_address} updated the status from #{old_status.humanize} to #{new_status.humanize}"
-      @project.notes.create!(note_type: "system", content: note_content, user: Current.user)
+      @project.notes.create!(note_type: "status", content: note_content, user: Current.user)
     end
 
     def build_created_note
